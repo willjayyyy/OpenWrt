@@ -60,6 +60,9 @@ jobs:
         temp-reserve-mb: 100
         root-reserve-mb: 1024
 
+    - name: Checkout
+      uses: actions/checkout@main
+
     - name: Clone Source Code
       run: |
         df -hT $GITHUB_WORKSPACE
