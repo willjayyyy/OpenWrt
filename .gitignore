@@ -1,0 +1,60 @@
+# Claude Code
+.claude/
+
+# Build artifacts and temporary files
+openwrt/
+bin/
+build_dir/
+staging_dir/
+tmp/
+logs/
+*.log
+*.tmp
+
+# Downloaded packages
+dl/
+
+# Config backup files
+*.orig
+*.rej
+*~
+*.swp
+*.swo
+.*.swp
+
+# IDE and editor files
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Git merge/conflict files
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+*_BACKUP_*
+*_BASE_*
+*_LOCAL_*
+*_REMOTE_*
+
+# SSH keys and sensitive data
+*.pem
+*.key
+id_rsa*
+id_dsa*
+*.ppk
+
+# OS generated files
+.AppleDouble
+.LSOverride
+Icon?
+._*
+desktop.ini
+$RECYCLE.BIN/
+
+# Temporary test files
+test.sh
+debug.sh
+*.test

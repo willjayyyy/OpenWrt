@@ -34,6 +34,7 @@ git clone --depth=1 https://github.com/Jason6111/luci-app-netdata package/luci-a
 
 # 科学上网插件
 git clone --depth=1 -b main https://github.com/fw876/helloworld package/luci-app-ssr-plus
+sed -i 's/TARGET_CFLAGS += -flto/TARGET_CFLAGS += -flto -Wno-error=use-after-free/' package/luci-app-ssr-plus/shadowsocksr-libev/Makefile
 git clone --depth=1 https://github.com/Openwrt-Passwall/openwrt-passwall-packages package/openwrt-passwall
 git clone --depth=1 https://github.com/Openwrt-Passwall/openwrt-passwall package/luci-app-passwall
 git clone --depth=1 https://github.com/Openwrt-Passwall/openwrt-passwall2 package/luci-app-passwall2
@@ -63,7 +64,10 @@ sed -i 's|include ../../lang/rust/rust-package.mk|-include ../../lang/rust/rust-
 # msd_lite
 git clone --depth=1 https://github.com/ximiTech/luci-app-msd_lite package/luci-app-msd_lite
 git clone --depth=1 https://github.com/ximiTech/msd_lite package/msd_lite
-rm -rf package/luci-app-msd_lite/root/etc/{config,init.d,msd_lite}
+# Remove conflicting files from luci-app-msd_lite (these should only be in msd_lite package)
+rm -rf package/luci-app-msd_lite/root/etc/config/msd_lite
+rm -rf package/luci-app-msd_lite/root/etc/init.d/msd_lite
+rm -rf package/luci-app-msd_lite/root/etc/msd_lite
 
 # MosDNS
 git clone --depth=1 https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
