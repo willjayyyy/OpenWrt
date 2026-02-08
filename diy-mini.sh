@@ -121,10 +121,7 @@ sed -i 's|admin\\|admin\\/services\\|g' feeds/luci/applications/luci-app-dockerm
 # sed -i '/samba4/s/^/#/' package/lean/default-settings/files/zzz-default-settings
 
 ./scripts/feeds update -a
+# feeds update 会恢复之前删除的包，需要重新删除
+rm -rf feeds/packages/net/msd_lite
+rm -rf feeds/packages/net/smartdns
 ./scripts/feeds install -a
-
-# 在 feeds install 之后删除 msd_lite 的冲突文件
-# 这些文件应该只由 msd_lite 包提供，luci-app-msd_lite 不应该包含它们
-rm -rf package/luci-app-msd_lite/root/etc/config/msd_lite
-rm -rf package/luci-app-msd_lite/root/etc/init.d/msd_lite
-rm -rf package/luci-app-msd_lite/root/etc/msd_lite
