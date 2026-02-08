@@ -72,10 +72,6 @@ sed -i 's|include ../../lang/rust/rust-package.mk|-include ../../lang/rust/rust-
 # msd_lite
 git clone --depth=1 https://github.com/ximiTech/luci-app-msd_lite package/luci-app-msd_lite
 git clone --depth=1 https://github.com/ximiTech/msd_lite package/msd_lite
-# Remove conflicting files from luci-app-msd_lite (these should only be in msd_lite package)
-rm -rf package/luci-app-msd_lite/root/etc/config/msd_lite
-rm -rf package/luci-app-msd_lite/root/etc/init.d/msd_lite
-rm -rf package/luci-app-msd_lite/root/etc/msd_lite
 
 # MosDNS
 git clone --depth=1 https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
@@ -130,3 +126,9 @@ find package/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+
+# 在 feeds install 之后删除 msd_lite 的冲突文件
+# 这些文件应该只由 msd_lite 包提供，luci-app-msd_lite 不应该包含它们
+rm -rf package/luci-app-msd_lite/root/etc/config/msd_lite
+rm -rf package/luci-app-msd_lite/root/etc/init.d/msd_lite
+rm -rf package/luci-app-msd_lite/root/etc/msd_lite
