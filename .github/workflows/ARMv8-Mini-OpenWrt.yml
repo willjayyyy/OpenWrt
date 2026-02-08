@@ -111,7 +111,7 @@ jobs:
       uses: HiGarfield/cachewrtbuild@main
       with:
         ccache: false
-        mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-armv8-mini-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
+        mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-armvirt-64-mini
         prefix: ${{ env.OPENWRT_PATH }}
 
     - name: Install Feeds
