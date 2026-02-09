@@ -12,9 +12,6 @@
 # 移除要替换的包
 rm -rf feeds/luci/themes/luci-theme-argon
 rm -rf feeds/luci/applications/luci-app-argon-config
-rm -rf feeds/luci/applications/luci-app-netdata
-rm -rf feeds/luci/applications/luci-app-adguardhome
-rm -rf feeds/luci/applications/luci-app-openclash
 
 # Git稀疏克隆，只克隆指定目录到本地
 function git_sparse_clone() {
@@ -26,14 +23,14 @@ function git_sparse_clone() {
   cd .. && rm -rf $repodir
 }
 
-# 添加额外插件
-git clone --depth=1 https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
-git clone --depth=1 https://github.com/Jason6111/luci-app-netdata package/luci-app-netdata
-# git_sparse_clone master https://github.com/syb999/openwrt-19.07.1 package/network/services/msd_lite
+# 添加额外插件（adguardhome、netdata 使用 feeds 版本）
 
 # 科学上网插件
 git clone --depth=1 -b master https://github.com/fw876/helloworld package/luci-app-ssr-plus
 sed -i 's/TARGET_CFLAGS += -flto/TARGET_CFLAGS += -flto -Wno-error=use-after-free/' package/luci-app-ssr-plus/shadowsocksr-libev/Makefile
+# 删除 helloworld 中版本较旧的包，使用 passwall-packages 的更新版本
+rm -rf package/luci-app-ssr-plus/ipt2socks
+rm -rf package/luci-app-ssr-plus/simple-obfs
 git clone --depth=1 https://github.com/Openwrt-Passwall/openwrt-passwall-packages package/openwrt-passwall
 git clone --depth=1 https://github.com/Openwrt-Passwall/openwrt-passwall package/luci-app-passwall
 git clone --depth=1 https://github.com/Openwrt-Passwall/openwrt-passwall2 package/luci-app-passwall2
