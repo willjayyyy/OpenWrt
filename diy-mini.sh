@@ -64,10 +64,6 @@ sed -i 's|include ../../lang/rust/rust-package.mk|-include ../../lang/rust/rust-
 # msd_lite
 git clone --depth=1 https://github.com/ximiTech/luci-app-msd_lite package/luci-app-msd_lite
 git clone --depth=1 https://github.com/ximiTech/msd_lite package/msd_lite
-# 删除 luci-app-msd_lite 中与 msd_lite 重复的文件，避免 file clash
-rm -rf package/luci-app-msd_lite/root/etc/config/msd_lite
-rm -rf package/luci-app-msd_lite/root/etc/init.d/msd_lite
-rm -rf package/luci-app-msd_lite/root/etc/msd_lite
 
 # MosDNS
 git clone --depth=1 https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
@@ -125,7 +121,10 @@ sed -i 's|admin\\|admin\\/services\\|g' feeds/luci/applications/luci-app-dockerm
 # sed -i '/samba4/s/^/#/' package/lean/default-settings/files/zzz-default-settings
 
 ./scripts/feeds update -a
-# feeds update 会恢复之前删除的包，需要重新删除
+# feeds update 会恢复之前删除的包，需要重新删除源目录和 symlink
 rm -rf feeds/packages/net/msd_lite
 rm -rf feeds/packages/net/smartdns
 ./scripts/feeds install -a
+# feeds install 可能重建 broken symlink，彻底删除以避免与 package/ 下的自定义版本冲突
+rm -rf package/feeds/packages/msd_lite
+rm -rf package/feeds/packages/smartdns
